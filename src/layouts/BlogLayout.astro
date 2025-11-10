@@ -75,7 +75,7 @@ const readingTime = Math.ceil(wordCount / 200); // Average reading speed: 200 wo
       {tags && tags.length > 0 && (
         <div class="flex flex-wrap gap-2 mt-4">
           {tags.map((tag) => (
-            <SkillBadge skill={tag} />
+            <SkillBadge name={tag} logoUrl={`/logos/${tag.toLowerCase()}.svg`} />
           ))}
         </div>
       )}
