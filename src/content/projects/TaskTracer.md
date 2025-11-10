@@ -3,7 +3,7 @@ title: 'Task Tracker'
 description: 'Task Tracker is a personal task management application built with Vite, React, and TypeScript. It is fully frontend, uses localStorage for persistence, and mock data for the initial state. Includes dark/light mode, subtle animations, and a modern UI based on Material UI (MUI).'
 image: 'https://raw.githubusercontent.com/ToRo18299/task-tracker/main/src/assets/tasktracer.png'
 startDate: '2025-01-01'
-skills: ['React', 'Vite', 'TypeScript', 'Material UI', 'localStorage']
+skills: ['React', 'Vite', 'TypeScript', 'Material UI']
 sourceLink: 'https://github.com/ToRo18299/task-tracker'
 ---
 

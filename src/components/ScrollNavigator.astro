@@ -1,15 +1,15 @@
 ---
-  // Este componente crea un botón flotante para navegar entre secciones
-  const sections = [
-    'hero',
-    'about',
-    'projects',
-    'blog',
-    'work',
-    'education',
-    'hackathons',
-    'contact',
-  ]
+// Este componente crea un botón flotante para navegar entre secciones
+const sections = [
+  'hero',
+  'about',
+  'projects',
+  'blog',
+  'work',
+  'education',
+  'hackathons',
+  'contact',
+]
 ---
 
 <style>
@@ -45,40 +45,38 @@
   }
 </style>
 
-<button id="scroll-nav-btn" aria-label="Scroll navigation" data-dir="down">
+<button id='scroll-nav-btn' aria-label='Scroll navigation' data-dir='down'>
   <svg
-    id="arrow-down"
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
+    id='arrow-down'
+    xmlns='http://www.w3.org/2000/svg'
+    width='32'
+    height='32'
+    fill='none'
+    viewBox='0 0 24 24'
+    stroke='currentColor'
   >
     <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M19 9l-7 7-7-7"
-    />
+      stroke-linecap='round'
+      stroke-linejoin='round'
+      stroke-width='2'
+      d='M19 9l-7 7-7-7'></path>
   </svg>
 
   <svg
-    id="arrow-up"
-    style="display: none;"
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
+    id='arrow-up'
+    style='display: none;'
+    xmlns='http://www.w3.org/2000/svg'
+    width='32'
+    height='32'
+    fill='none'
+    viewBox='0 0 24 24'
+    stroke='currentColor'
   >
     <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M5 15l7-7 7 7"
-    />
+      stroke-linecap='round'
+      stroke-linejoin='round'
+      stroke-width='2'
+      d='M5 15l7-7 7 7'></path>
   </svg>
 </button>
 
@@ -92,80 +90,87 @@
     'education',
     'hackathons',
     'contact',
-  ];
+  ]
 
-  let currentSection = 0;
+  let currentSection = 0
 
   function updateSection() {
-    let found = 0;
+    // Verifica si existe al menos una sección objetivo en la página
+    const anySectionExists = sections.some((id) => document.getElementById(id))
+    const btn = document.getElementById('scroll-nav-btn')
+    if (!anySectionExists) {
+      if (btn) btn.style.display = 'none'
+      return
+    }
+    let found = 0
     for (let i = 0; i < sections.length; i++) {
-      const el = document.getElementById(sections[i]);
+      const el = document.getElementById(sections[i])
       if (el) {
-        const rect = el.getBoundingClientRect();
+        const rect = el.getBoundingClientRect()
         if (rect.top <= window.innerHeight * 0.3) {
-          found = i;
+          found = i
         }
       }
     }
-    currentSection = found;
-    updateButton();
-    updateArrow();
+    currentSection = found
+    updateButton()
+    updateArrow()
   }
 
   function scrollToSection(idx) {
-    const el = document.getElementById(sections[idx]);
+    const el = document.getElementById(sections[idx])
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
   function updateButton() {
-    const btn = document.getElementById('scroll-nav-btn');
-    if (!btn) return;
+    const btn = document.getElementById('scroll-nav-btn')
+    if (!btn) return
 
     if (currentSection === 0) {
-      btn.setAttribute('data-dir', 'down');
-      btn.style.display = 'block';
+      btn.setAttribute('data-dir', 'down')
+      btn.style.display = 'block'
     } else if (currentSection === sections.length - 1) {
-      btn.setAttribute('data-dir', 'up');
-      btn.style.display = 'block';
+      btn.setAttribute('data-dir', 'up')
+      btn.style.display = 'block'
     } else {
-      btn.setAttribute('data-dir', 'both');
-      btn.style.display = 'block';
+      btn.setAttribute('data-dir', 'both')
+      btn.style.display = 'block'
     }
   }
 
   function updateArrow() {
-    const btn = document.getElementById('scroll-nav-btn');
-    if (!btn) return;
+    const btn = document.getElementById('scroll-nav-btn')
+    if (!btn) return
 
-    const dir = btn.getAttribute('data-dir');
+    const dir = btn.getAttribute('data-dir')
     btn.querySelector('#arrow-down').style.display =
-      dir === 'down' || dir === 'both' ? 'block' : 'none';
+      dir === 'down' || dir === 'both' ? 'block' : 'none'
     btn.querySelector('#arrow-up').style.display =
-      dir === 'up' ? 'block' : 'none';
+      dir === 'up' ? 'block' : 'none'
   }
 
   function handleClick() {
-    const btn = document.getElementById('scroll-nav-btn');
-    const dir = btn.getAttribute('data-dir');
+    const btn = document.getElementById('scroll-nav-btn')
+    const dir = btn.getAttribute('data-dir')
 
     if (dir === 'down') {
-      scrollToSection(currentSection + 1);
+      scrollToSection(currentSection + 1)
     } else if (dir === 'up') {
-      scrollToSection(currentSection - 1);
+      scrollToSection(currentSection - 1)
     } else {
-      scrollToSection(currentSection + 1);
+      scrollToSection(currentSection + 1)
     }
   }
 
-  window.addEventListener('scroll', updateSection);
+  window.addEventListener('scroll', updateSection)
 
   window.addEventListener('DOMContentLoaded', () => {
-    updateSection();
-    const btn = document.getElementById('scroll-nav-btn');
+    updateSection()
+    const btn = document.getElementById('scroll-nav-btn')
     if (btn) {
-      btn.addEventListener('click', handleClick);
+      btn.addEventListener('click', handleClick)
     }
-  });
+  })
 </script>

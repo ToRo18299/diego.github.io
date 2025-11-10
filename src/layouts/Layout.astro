@@ -47,7 +47,7 @@ const origin = Astro.url.origin
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
     <meta name='description' content={description} />
-    <link rel='icon' type='image/svg+xml' href='/diego.github.io/favicon.svg' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='generator' content={Astro.generator} />
     <title>{title}</title>
 
@@ -68,9 +68,24 @@ const origin = Astro.url.origin
     <meta name='twitter:image' content={`${origin}/images/og_home.png`} />
   </head>
   <body class='min-h-screen'>
-    <!-- Theme Controls - Fixed Position -->
-    <div class='fixed top-4 right-4 z-50'>
-      {siteConfig.enableThemeSelector ? <ThemeSelector /> : <ThemeToggle />}
+    <!-- Theme Controls - Responsive Position -->
+    <div
+      class='fixed z-50 right-4 top-4 md:top-4 md:right-4 md:bottom-auto md:left-auto bottom-4 left-auto
+        md:flex md:items-center'
+      style='pointer-events: auto;'
+    >
+      <div class='block md:hidden'>
+        <!-- Móvil: abajo a la izquierda -->
+        <div class='fixed bottom-4 left-4 z-50'>
+          {siteConfig.enableThemeSelector ? <ThemeSelector /> : <ThemeToggle />}
+        </div>
+      </div>
+      <div class='hidden md:block'>
+        <!-- Desktop: abajo a la izquierda -->
+        <div class='fixed bottom-4 left-4 z-50'>
+          {siteConfig.enableThemeSelector ? <ThemeSelector /> : <ThemeToggle />}
+        </div>
+      </div>
     </div>
 
     <!-- Sticky Navbar with Scrollspy -->

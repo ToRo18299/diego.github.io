@@ -15,6 +15,98 @@ interface Props {
   sourceLink?: string
 }
 
+// Mapeo de tecnologías a logo y link
+const techMap: { [key: string]: { logo: string; link: string } } = {
+  React: {
+    logo: 'https://cdn.simpleicons.org/react',
+    link: 'https://react.dev/',
+  },
+  Vite: {
+    logo: 'https://cdn.simpleicons.org/vite',
+    link: 'https://vitejs.dev/',
+  },
+  TypeScript: {
+    logo: 'https://cdn.simpleicons.org/typescript',
+    link: 'https://www.typescriptlang.org/',
+  },
+  'Material UI': {
+    logo: 'https://cdn.simpleicons.org/mui',
+    link: 'https://mui.com/',
+  },
+  'Node.js': {
+    logo: 'https://cdn.simpleicons.org/nodedotjs',
+    link: 'https://nodejs.org/',
+  },
+  'Express.js': {
+    logo: 'https://cdn.simpleicons.org/express',
+    link: 'https://expressjs.com/',
+  },
+  MySQL: {
+    logo: 'https://cdn.simpleicons.org/mysql',
+    link: 'https://www.mysql.com/',
+  },
+  HTML: {
+    logo: 'https://cdn.simpleicons.org/html5',
+    link: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
+  },
+  CSS: {
+    logo: 'https://w7.pngwing.com/pngs/393/49/png-transparent-css-logo.png',
+    link: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
+  },
+  JavaScript: {
+    logo: 'https://cdn.simpleicons.org/javascript',
+    link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+  },
+  Python: {
+    logo: 'https://cdn.simpleicons.org/python',
+    link: 'https://www.python.org/',
+  },
+  C: {
+    logo: 'https://www.ingenioempresa.com/wp-content/uploads/2022/09/C-Language-1-927x1024.png',
+    link: 'https://en.wikipedia.org/wiki/C_(programming_language)',
+  },
+  ESP32: {
+    logo: 'https://cdn.simpleicons.org/espressif',
+    link: 'https://www.espressif.com/en/products/socs/esp32/',
+  },
+  FreeRTOS: {
+    logo: 'https://tse3.mm.bing.net/th/id/OIP.FoOmxmFZ-8xI7SKZKDlNGgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3',
+    link: 'https://www.freertos.org/',
+  },
+  'PID Control': {
+    logo: 'https://tse1.mm.bing.net/th/id/OIP.zyhjIjnbbgK8CbzKa_U2DwHaGp?rs=1&pid=ImgDetMain&o=7&rm=3',
+    link: 'https://en.wikipedia.org/wiki/PID_controller',
+  },
+  MPU6050: {
+    logo: 'https://rukminim1.flixcart.com/image/1408/1408/learning-toy/g/h/v/robokits-triple-axis-accelerometer-gyro-mpu-6050-breakout-original-imae3ux6t2hrcz65.jpeg?q=90',
+    link: 'https://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/',
+  },
+  'Python Dash': {
+    logo: 'https://www.the-odd-dataguy.com/images/posts/20180226/cover.png',
+    link: 'https://dash.plotly.com/',
+  },
+  'Signal Processing': {
+    logo: 'https://tse4.mm.bing.net/th/id/OIP.1zm2HxAE4rd6FkiqdsG8IwHaDe?rs=1&pid=ImgDetMain&o=7&rm=3',
+    link: 'https://en.wikipedia.org/wiki/Signal_processing',
+  },
+  'Tailwind CSS': {
+    logo: 'https://cdn.simpleicons.org/tailwindcss',
+    link: 'https://tailwindcss.com/',
+  },
+  Git: {
+    logo: 'https://cdn.simpleicons.org/git',
+    link: 'https://git-scm.com/',
+  },
+  GitHub: {
+    logo: 'https://cdn.simpleicons.org/github',
+    link: 'https://github.com/',
+  },
+  Docker: {
+    logo: 'https://cdn.simpleicons.org/docker',
+    link: 'https://www.docker.com/',
+  },
+}
+
 const {
   title,
   description,
@@ -160,9 +252,22 @@ function calculateDuration(startDate: Date, endDate?: Date) {
           <div class='card-body'>
             <h2 class='card-title text-lg mb-3'>Tech Stack</h2>
             <div class='flex flex-wrap gap-2'>
-              {skills.map((skill) => (
-                <SkillBadge name={skill} logoUrl='' />
-              ))}
+              {skills.map((skill) => {
+                const tech = techMap[skill] || { logo: '', link: '' }
+                return tech.logo ? (
+                  <a
+                    href={tech.link}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    title={skill}
+                    style='display:inline-block;'
+                  >
+                    <SkillBadge name={skill} logoUrl={tech.logo} />
+                  </a>
+                ) : (
+                  <SkillBadge name={skill} logoUrl='' />
+                )
+              })}
             </div>
           </div>
         </div>
