@@ -11,6 +11,7 @@ const work = defineCollection({
     endDate: z.coerce.date().optional(),
     logo: z.string().optional(),
     link: z.string().url().optional(),
+    tech: z.string().optional(),
   }),
 });
 

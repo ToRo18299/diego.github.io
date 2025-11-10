@@ -1,0 +1,92 @@
+---
+// Sticky Navbar with Scrollspy for main sections
+const sections = [
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Proyectos' },
+  { id: 'blog', label: 'Blog' },
+  { id: 'work', label: 'Experiencia' },
+  { id: 'education', label: 'Educación' },
+  { id: 'contact', label: 'Contacto' },
+]
+---
+
+<nav
+  class='sticky top-0 z-40 bg-base-100/80 backdrop-blur border-b border-base-200 shadow-sm'
+>
+  <div
+    class='max-w-7xl mx-auto flex gap-2 px-4 py-2 items-center justify-center md:justify-between'
+  >
+    <div class='flex gap-2 md:gap-6'>
+      <a
+        href='#about'
+        class='nav-link px-3 py-1 rounded transition-colors duration-200 hover:bg-primary/10 hover:text-primary font-medium text-base-content/80'
+        >About me</a
+      >
+      <a
+        href='#projects'
+        class='nav-link px-3 py-1 rounded transition-colors duration-200 hover:bg-primary/10 hover:text-primary font-medium text-base-content/80'
+        >Projects</a
+      >
+      <a
+        href='#blog'
+        class='nav-link px-3 py-1 rounded transition-colors duration-200 hover:bg-primary/10 hover:text-primary font-medium text-base-content/80'
+        >Skills & Tools</a
+      >
+      <a
+        href='#work'
+        class='nav-link px-3 py-1 rounded transition-colors duration-200 hover:bg-primary/10 hover:text-primary font-medium text-base-content/80'
+        >Experience</a
+      >
+      <a
+        href='#education'
+        class='nav-link px-3 py-1 rounded transition-colors duration-200 hover:bg-primary/10 hover:text-primary font-medium text-base-content/80'
+        >Education</a
+      >
+      <a
+        href='#contact'
+        class='nav-link px-3 py-1 rounded transition-colors duration-200 hover:bg-primary/10 hover:text-primary font-medium text-base-content/80'
+        >Contact</a
+      >
+    </div>
+  </div>
+</nav>
+<style>
+  .nav-link.active {
+    color: var(--tw-prose-bold);
+    background: var(--tw-prose-invert-bg);
+    font-weight: bold;
+  }
+</style>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var sectionIds = [
+      'about',
+      'projects',
+      'blog',
+      'work',
+      'education',
+      'contact',
+    ]
+    function updateActiveSection() {
+      var found = 'about'
+      for (var i = 0; i < sectionIds.length; i++) {
+        var id = sectionIds[i]
+        var el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= 80) {
+          found = id
+        }
+      }
+      var links = document.querySelectorAll('.nav-link')
+      for (var j = 0; j < links.length; j++) {
+        var link = links[j]
+        link.classList.toggle(
+          'active',
+          link.getAttribute('href') === '#' + found
+        )
+      }
+    }
+    window.addEventListener('scroll', updateActiveSection)
+    window.addEventListener('astro:after-swap', updateActiveSection)
+    updateActiveSection()
+  })
+</script>

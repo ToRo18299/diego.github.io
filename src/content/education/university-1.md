@@ -1,10 +1,10 @@
 ---
-title: "University of Technology"
-subtitle: "Bachelor of Science in Computer Science"
-logo: "https://api.dicebear.com/9.x/icons/svg?seed=Nolan"
-startDate: "2015-09-01"
-endDate: "2019-05-30"
-link: "https://university.edu"
+title: 'Universidad del Valle'
+subtitle: 'Electronic Engineer'
+logo: 'https://i.pinimg.com/originals/70/79/79/7079794f40f32d513489550aa839b5bc.png'
+startDate: '2019-01-01'
+endDate: '2025-11-30'
+link: 'https://www.univalle.edu.co/'
 ---
 
-Focused on software engineering, algorithms, and data structures. Graduated with honors and participated in various coding competitions.
+Focused on electronic systems design, automation, and telecommunications. Developed strong analytical and problem-solving skills through engineering projects and teamwork. Graduated with a solid foundation in electronics, control systems, and signal processing.

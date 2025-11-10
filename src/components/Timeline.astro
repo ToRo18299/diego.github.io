@@ -1,117 +1,152 @@
 ---
-import { getCollection, render } from "astro:content";
+import { Eye } from '@lucide/astro'
+import { getCollection, render } from 'astro:content'
 
 interface Props {
-  collection: "work" | "education";
-  variant: "timeline" | "list";
-  color?: string;
-  backgroundColor?: string;
-  icon: any; // Pass the icon component directly
-  sectionTitle: string;
-  sectionSubtitle?: string;
+  collection: 'work' | 'education'
+  variant: 'timeline' | 'list'
+  color?: string
+  backgroundColor?: string
+  icon: any // Pass the icon component directly
+  sectionTitle: string
+  sectionSubtitle?: string
 }
 
 const {
   collection,
   variant,
-  color = "primary",
-  backgroundColor = "base-200",
+  color = 'primary',
+  backgroundColor = 'base-200',
   icon,
   sectionTitle,
   sectionSubtitle,
-} = Astro.props;
+} = Astro.props
 
 // Dynamic component - must be capitalized
-const IconComponent = icon;
+const IconComponent = icon
 
 // Load collection entries
-const entries = await getCollection(collection);
+const entries = await getCollection(collection)
 
 // Sort by start date, most recent first
 const sortedEntries = entries.sort(
   (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
-);
+)
 
 function formatPeriod(startDate: Date, endDate?: Date) {
   const options: Intl.DateTimeFormatOptions = {
-    month: "short",
-    year: "numeric",
-  };
-  const start = startDate.toLocaleDateString("en-US", options);
-  const end = endDate
-    ? endDate.toLocaleDateString("en-US", options)
-    : "Present";
-  return `${start} - ${end}`;
+    month: 'short',
+    year: 'numeric',
+  }
+  const start = startDate.toLocaleDateString('en-US', options)
+  const end = endDate ? endDate.toLocaleDateString('en-US', options) : 'Present'
+  return `${start} - ${end}`
 }
 
 // Render markdown content for each entry
+// Extiende el tipado para incluir tech
+type WorkEntry = (typeof sortedEntries)[number] & { data: { tech?: string } }
 const entriesWithContent = await Promise.all(
   sortedEntries.map(async (entry) => {
-    const { Content } = await render(entry);
-    return { entry, Content };
+    const { Content } = await render(entry)
+    // Forzar el tipado para que entry.data.tech sea accesible
+    return { entry: entry as WorkEntry, Content }
   })
-);
+)
 ---
 
 <section id={collection} class={`py-20 px-4 bg-${backgroundColor}`}>
-  <div class={`mx-auto ${variant === "timeline" ? "max-w-4xl" : "max-w-4xl"}`}>
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold">{sectionTitle}</h2>
-      {
-        sectionSubtitle && (
-          <p class="text-base-content/70 mt-2">{sectionSubtitle}</p>
-        )
-      }
+  <div class={`mx-auto ${variant === 'timeline' ? 'max-w-4xl' : 'max-w-4xl'}`}>
+    <div
+      class='relative text-center mb-12 py-8 bg-gradient-to-r from-primary/10 to-base-200/80 rounded-xl shadow'
+    >
+      <div class='flex flex-col items-center gap-2'>
+        <IconComponent class={`size-10 text-${color} mb-2`} />
+        <h2 class='text-5xl font-extrabold tracking-tight'>{sectionTitle}</h2>
+        {
+          sectionSubtitle && (
+            <p class='text-base-content/70 text-lg mt-1'>{sectionSubtitle}</p>
+          )
+        }
+        <div
+          class='w-16 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mt-3'
+        >
+        </div>
+        <p class='italic text-base-content/60 mt-2'></p>
+      </div>
     </div>
 
     {
-      variant === "timeline" ? (
-        <ul class="timeline timeline-vertical timeline-snap-icon">
+      variant === 'timeline' ? (
+        <ul class='timeline timeline-vertical timeline-snap-icon'>
           {entriesWithContent.map(({ entry, Content }, index) => (
             <li>
-              {index > 0 && <hr class="bg-base-100" />}
-              <div class="timeline-middle">
+              {index > 0 && <hr class='bg-base-100' />}
+              <div class='timeline-middle'>
                 <IconComponent class={`size-5 text-${color} mx-3 my-1`} />
               </div>
               <div
-                class={`timeline-${index % 2 === 0 ? "start" : "end"} pt-3 mb-10`}
+                class={`timeline-${index % 2 === 0 ? 'start' : 'end'} pt-3 mb-10`}
               >
                 <time
-                  class={`font-mono text-sm text-base-content/70 block italic ${index % 2 === 0 ? "text-end" : ""}`}
+                  class={`font-mono text-sm text-base-content/70 block italic ${index % 2 === 0 ? 'text-end' : ''}`}
                 >
                   {formatPeriod(entry.data.startDate, entry.data.endDate)}
                 </time>
-                <div class="card bg-base-100 shadow-xl mt-2">
-                  <div class="card-body">
-                    <div class="flex items-center gap-4 mb-2">
+                <div class='card bg-base-100 shadow-xl mt-2'>
+                  <div class='card-body'>
+                    <div class='flex items-center gap-4 mb-2'>
                       {entry.data.logo && (
-                        <div class="avatar">
-                          <div class="w-12 mask mask-squircle">
+                        <div class='avatar'>
+                          <div class='w-12 mask mask-squircle'>
                             <img src={entry.data.logo} alt={entry.data.title} />
                           </div>
                         </div>
                       )}
                       <div>
-                        <h3 class="card-title">{entry.data.title}</h3>
+                        <h3 class='card-title'>{entry.data.title}</h3>
                         <p class={`text-${color} font-semibold`}>
                           {entry.data.subtitle}
                         </p>
                       </div>
                     </div>
-                    <div class="prose prose-sm max-w-none text-base-content/80">
+                    <div class='prose prose-sm max-w-none text-base-content/80'>
                       <Content />
                     </div>
+                    {/* Mostrar badges de tecnologías si existen */}
+                    {typeof entry.data.tech === 'string' && entry.data.tech && (
+                      <div class='flex flex-wrap gap-2 mt-3'>
+                        {(entry.data.tech as string)
+                          .split(',')
+                          .map((tech: string) => (
+                            <span
+                              class={`inline-block bg-base-200 border border-${color} text-${color} rounded-full px-4 py-1 text-sm font-medium shadow-sm transition-all duration-200 hover:bg-${color} hover:text-base-100`}
+                              style='letter-spacing:0.02em;'
+                            >
+                              {tech.trim()}
+                            </span>
+                          ))}
+                      </div>
+                    )}
                     {entry.data.link && (
-                      <div class="card-actions justify-end mt-4">
+                      <div class='card-actions justify-end mt-4'>
                         <a
                           href={entry.data.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="link link-hover"
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          class='btn btn-primary flex items-center gap-2 font-semibold text-base px-4 py-2 w-full sm:w-auto transition-all duration-150 hover:scale-105 hover:shadow-md'
+                          aria-label={
+                            collection === 'work'
+                              ? 'View company details'
+                              : 'View institution details'
+                          }
                         >
-                          {collection === "work"
-                            ? "View Company"
-                            : "View Institution"}
+                          <Eye class='size-5' />
+                          <span>
+                            {collection === 'work'
+                              ? 'View Company'
+                              : 'View Institution'}
+                          </span>
                         </a>
                       </div>
                     )}
@@ -119,55 +154,60 @@ const entriesWithContent = await Promise.all(
                 </div>
               </div>
               {index < entriesWithContent.length - 1 && (
-                <hr class="bg-base-100" />
+                <hr class='bg-base-100' />
               )}
             </li>
           ))}
         </ul>
       ) : (
-        <ul class="list bg-base-100 rounded-box shadow-lg">
+        <ul class='list bg-base-100 rounded-box shadow-lg'>
           {entriesWithContent.map(({ entry, Content }, index) => (
-            <li class="border-b hover:opacity-85 transition-opacity border-base-300 last:border-b-0">
-              <details class="collapse">
-                <summary class="collapse-title pe-5">
-                  <div class="list-row p-0 items-center after:hidden">
-                    <div>
-                      {entry.data.logo && (
-                        <div class="avatar">
-                          <div class="w-10 mask mask-squircle">
-                            <img src={entry.data.logo} alt={entry.data.title} />
-                          </div>
-                        </div>
-                      )}
+            <li class='border-b hover:opacity-85 transition-opacity border-base-300 last:border-b-0'>
+              <details class='group overflow-hidden rounded-lg border border-base-300 bg-base-100 shadow-md transition-all duration-200'>
+                <summary class='flex items-center gap-4 cursor-pointer px-5 py-4 select-none font-semibold text-lg transition-colors duration-200 group-open:bg-primary/10 group-open:text-primary'>
+                  <span class='transition-transform duration-200 group-open:rotate-90'>
+                    <svg
+                      width='20'
+                      height='20'
+                      fill='none'
+                      stroke='currentColor'
+                      stroke-width='2'
+                      viewBox='0 0 24 24'
+                    >
+                      <path d='M9 5l7 7-7 7' />
+                    </svg>
+                  </span>
+                  {entry.data.logo && (
+                    <div class='avatar'>
+                      <div class='w-10 mask mask-squircle'>
+                        <img src={entry.data.logo} alt={entry.data.title} />
+                      </div>
                     </div>
-
-                    <div>
-                      <h3 class="font-bold text-lg">{entry.data.title}</h3>
-                      <p class={`text-${color} font-semibold text-sm`}>
-                        {entry.data.subtitle}
-                      </p>
-                    </div>
-
-                    <div class="text-sm text-base-content/70 font-mono whitespace-nowrap">
-                      {formatPeriod(entry.data.startDate, entry.data.endDate)}
-                    </div>
+                  )}
+                  <div class='flex-1'>
+                    <h3 class='font-bold text-lg'>{entry.data.title}</h3>
+                    <p class={`text-${color} font-semibold text-sm`}>
+                      {entry.data.subtitle}
+                    </p>
+                  </div>
+                  <div class='text-sm text-base-content/70 font-mono whitespace-nowrap'>
+                    {formatPeriod(entry.data.startDate, entry.data.endDate)}
                   </div>
                 </summary>
-
-                <div class="collapse-content">
-                  <div class="prose prose-sm max-w-none text-base-content/80">
+                <div class='px-6 pb-5 pt-2 animate-fadein'>
+                  <div class='prose prose-sm max-w-none text-base-content/80'>
                     <Content />
                   </div>
                   {entry.data.link && (
-                    <div class="flex justify-end">
+                    <div class='flex justify-end mt-4'>
                       <a
                         href={entry.data.link}
-                        target="_blank"
-                        class="link link-hover"
+                        target='_blank'
+                        class='link link-hover'
                       >
-                        {collection === "work"
-                          ? "View Company"
-                          : "View Institution"}
+                        {collection === 'work'
+                          ? 'View Company'
+                          : 'View Institution'}
                       </a>
                     </div>
                   )}

@@ -74,8 +74,6 @@ export interface SiteConfig {
   title: string;
   /** Site description for SEO and hero section */
   description: string;
-  /** Path to avatar/logo image */
-  avatar: string;
   /** Location/City */
   location: string;
   /** Contact email */
@@ -95,21 +93,21 @@ export interface SiteConfig {
  * Update these values to customize your portfolio
  */
 export const siteConfig: SiteConfig = {
-  name: "🌻 Bloomfolio",
-  title: "Astro Portfolio Template built with 🌼 DaisyUI",
+  name: "Diego Andersson Ramos Toro",
+  title: "Frontend Developer | Electronic Engineer",  
   description:
-    "A modern, responsive, and customizable portfolio template built with Astro and DaisyUI. Perfect for developers, designers, and creatives to showcase their work and skills.",
-  avatar: "../assets/bloomfolio.png",
-  location: "🇧🇷 Brazil",
-  email: "hello@example.com",
+  "I’m a Frontend Developer with an engineering mindset and a passion for creating digital experiences that connect functionality with design. I enjoy turning ideas into intuitive interfaces and building products that make technology feel simple and accessible.",
+
+  location: "Cali, Colombia",
+  email: "torod3793@gmail.com",
   socialLinks: {
-    github: "https://github.com/lauroguedes",
-    linkedin: "https://linkedin.com/in/lauroguedes",
-    twitter: "https://twitter.com/leowg",
-    bluesky: "https://bsky.app/profile/lauroguedes.bsky.social",
-    instagram: "https://instagram.com/lauroguedes.dev",
-    youTube: "https://youtube.com/leowgweb",
-    codetips: "https://codetips.cloud/u/lauroguedes",
+    github: "https://github.com/ToRo18299",
+    linkedin: "https://www.linkedin.com/in/diego-ramos-a09664302",
+    twitter: undefined,
+    bluesky: undefined,
+    instagram: undefined,
+    youTube: undefined,
+    codetips: undefined,
   },
   enableThemeSelector: true,
   extraLinks: {
