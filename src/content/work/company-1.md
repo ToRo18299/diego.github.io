@@ -1,8 +1,9 @@
 ---
 title: 'Chiper'
 subtitle: 'Frontend Developer'
-logo: 'https://media-exp1.licdn.com/dms/image/C4E0BAQGgSTtbj_TDJg/company-logo_200_200/0?e=2159024400&v=beta&t=oIdmDQyWoXA3llcYSY_X4nqdFynKlzartCyzs7E_rIc' # Puedes cambiar el logo si tienes uno oficial
+logo: 'https://play-lh.googleusercontent.com/5AWg-jXFphH0ntT6EDKnqiodqQEUfGpPq0dszHRbZslWRPLqr-aQyA6Ec1rXRBkf1xcX' # Puedes cambiar el logo si tienes uno oficial
 startDate: '2025-06-02'
+
 
 link: 'https://chiper.co/'
 tech: 'React, Next.js, TypeScript, GitHub, REST APIs, Echarts'
