@@ -5,8 +5,8 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://diego.github.io',
-  base: '/diego.github.io',
+  site: 'https://diego-github-63x10d80j.vercel.app',
+  // base: '/diego.github.io',
   integrations: [mdx()],
   adapter: vercel(),
   vite: {
