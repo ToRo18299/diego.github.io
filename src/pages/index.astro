@@ -11,7 +11,6 @@ import { Briefcase, GraduationCap } from '@lucide/astro'
 import { getEntry, render } from 'astro:content'
 
 import { siteConfig } from '../config'
-import fotoHV from '../assets/FOTO_HV.png'
 
 // Load about content
 const aboutEntry = await getEntry('about', 'about')
@@ -33,7 +32,7 @@ if (aboutEntry) {
         name={siteConfig.name}
         title={siteConfig.title}
         description={siteConfig.description}
-        avatar={fotoHV}
+        avatar={'https://raw.githubusercontent.com/ToRo18299/diego.github.io/main/public/foto_hv.jpg'}
         location={siteConfig.location}
         socialLinks={siteConfig.socialLinks}
       />

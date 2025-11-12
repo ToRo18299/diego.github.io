@@ -1,7 +1,7 @@
 ---
 title: 'Chiper'
 subtitle: 'Frontend Developer'
-logo: 'https://play-lh.googleusercontent.com/5AWg-jXFphH0ntT6EDKnqiodqQEUfGpPq0dszHRbZslWRPLqr-aQyA6Ec1rXRBkf1xcX' # Puedes cambiar el logo si tienes uno oficial
+logo: 'https://th.bing.com/th/id/R.cc4459d275c5549b07874681a43acfdb?rik=O%2fhxyhUpZmZL0A&pid=ImgRaw&r=0' # Puedes cambiar el logo si tienes uno oficial
 startDate: '2025-06-02'
 
 
